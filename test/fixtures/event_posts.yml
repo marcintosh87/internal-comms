@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  content: MyText
+  claps: 1
+  clicks: 1
+  User: one
+  topic: MyString
+  event_date: 2022-02-18
+  event_time: 2022-02-18 11:52:10
+  all_day: false
+  event_location: MyString
+  target: 1
+
+two:
+  title: MyString
+  content: MyText
+  claps: 1
+  clicks: 1
+  User: two
+  topic: MyString
+  event_date: 2022-02-18
+  event_time: 2022-02-18 11:52:10
+  all_day: false
+  event_location: MyString
+  target: 1

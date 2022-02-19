@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  content: MyText
+  claps: 1
+  clicks: 1
+  User: one
+  topic: MyString
+  target: 1
+
+two:
+  title: MyString
+  content: MyText
+  claps: 1
+  clicks: 1
+  User: two
+  topic: MyString
+  target: 1
