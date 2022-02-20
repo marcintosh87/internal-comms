@@ -9,30 +9,30 @@
 require 'faker'
 puts '🌱 Seeding spices...'
 
-Org = Organization.create({name: "Sample Company"})
+org = Organization.create({name: "Sample Company"})
 
 hr =
-  Division.create(
-    { name: 'Human Resources', active: true. organization_id: Org.id},
+  Department.create(
+    { name: 'Human Resources', active: true, organization_id: org.id}
   )
   sales =
-  Division.create(
-    { name: 'Sales', active: true, organization_id: Org.id},
+  Department.create(
+    { name: 'Sales', active: true, organization_id: org.id}
   )
 
   warehouse =
-  Division.create(
-    { name: 'Warehouse', active: true, organization_id: Org.id},
+  Department.create(
+    { name: 'Warehouse', active: true, organization_id: org.id}
   )
 finance =
-  Division.create({ name: 'Finance', active: true, organization_id: Org.id })
+  Department.create({ name: 'Finance', active: true, organization_id: org.id })
 legal =
-  Division.create({ name: 'Legal', active: true, organization_id: Org.id })
+  Department.create({ name: 'Legal', active: true, organization_id: org.id })
 marketing =
-  Division.create({ name: 'Marketing', active: true, organization_id: Org.id})
+  Department.create({ name: 'Marketing', active: true, organization_id: org.id})
 business_development =
-  Division.create(
-    { name: 'Business Development', active: true, organization_id: Org.id },
+  Department.create(
+    { name: 'Business Development', active: true, organization_id: org.id }
   )
 
 departments = [hr.id, finance.id, legal.id, marketing.id, business_development.id, sales.id, warehouse.id]
@@ -41,11 +41,11 @@ locations = ['atrium', "Mike's Desk", 'Building 50', 'Downtown Courthouse']
 Marcos =
   User.create(
     {
-      owner:true  
-      administrator: true,
+      owner:true,
+      admin: true,
       first_name: 'Marcos',
       last_name: 'Lopez',
-     
+      organization_id: org.id,
       department_id: hr.id,
       email: 'marcos@company.com',
       password: '123456',
@@ -55,16 +55,16 @@ Marcos =
       active: true,
       hire_date: Faker::Date.between(from: '2005-09-23', to: '2022-01-25'),
      
-    },
+    }
   )
 5.times do
   User.create(
     {
-      owner:false
-      administrator: false,
+      owner:false,
+      admin: false,
       first_name: Faker::Name.first_name,
       last_name: Faker::Name.last_name,
-     
+      organization_id: org.id,
       email: Faker::Internet.email,
       password: '123456',
       position: Faker::Job.title,
@@ -72,19 +72,19 @@ Marcos =
       extension: Faker::PhoneNumber.extension,
       active: true,
       hire_date: Faker::Date.between(from: '2014-09-23', to: '2022-01-25'),
-      department: hr.id,
-    },
+      department_id: hr.id,
+    }
   )
 end
 
 5.times do
   User.create(
     {
-        owner:false
-        administrator: false,
+        owner:false,
+        admin: false,
         first_name: Faker::Name.first_name,
         last_name: Faker::Name.last_name,
-       
+        organization_id: org.id,
         email: Faker::Internet.email,
         password: '123456',
         position: Faker::Job.title,
@@ -92,19 +92,19 @@ end
         extension: Faker::PhoneNumber.extension,
         active: true,
         hire_date: Faker::Date.between(from: '2014-09-23', to: '2022-01-25'),
-        department: sales.id,
-      },
+        department_id: sales.id,
+      }
   )
 end
 
 5.times do
   User.create(
     {
-        owner:false
-        administrator: false,
+        owner:false,
+        admin: false,
         first_name: Faker::Name.first_name,
         last_name: Faker::Name.last_name,
-       
+        organization_id: org.id,
         email: Faker::Internet.email,
         password: '123456',
         position: Faker::Job.title,
@@ -112,19 +112,19 @@ end
         extension: Faker::PhoneNumber.extension,
         active: true,
         hire_date: Faker::Date.between(from: '2014-09-23', to: '2022-01-25'),
-        department: finance.id,
-      },
+        department_id: finance.id,
+      }
   )
 end
 
 5.times do
   User.create(
     {
-        owner:false
-        administrator: false,
+        owner:false,
+        admin: false,
         first_name: Faker::Name.first_name,
         last_name: Faker::Name.last_name,
-       
+        organization_id: org.id,
         email: Faker::Internet.email,
         password: '123456',
         position: Faker::Job.title,
@@ -132,19 +132,19 @@ end
         extension: Faker::PhoneNumber.extension,
         active: true,
         hire_date: Faker::Date.between(from: '2014-09-23', to: '2022-01-25'),
-        department: legal.id,
-      },
+        department_id: legal.id,
+      }
   )
 end
 
 5.times do
   User.create(
     {
-        owner:false
-        administrator: false,
+        owner:false,
+        admin: false,
         first_name: Faker::Name.first_name,
         last_name: Faker::Name.last_name,
-       
+        organization_id: org.id,
         email: Faker::Internet.email,
         password: '123456',
         position: Faker::Job.title,
@@ -152,8 +152,8 @@ end
         extension: Faker::PhoneNumber.extension,
         active: true,
         hire_date: Faker::Date.between(from: '2014-09-23', to: '2022-01-25'),
-        department: departments.sample,
-      },
+        department_id: departments.sample,
+      }
   )
 end
 
@@ -162,13 +162,13 @@ end
     {
       title: Faker::Lorem.sentence(word_count: 3),
       content: Faker::Lorem.paragraph(sentence_count: 5),
-      target: departments.sample
+      target: departments.sample,
       claps: Faker::Number.within(range: 1..300),
       clicks: Faker::Number.within(range: 1..300),
-      division_id: hr.id,
+     
       user_id: Marcos.id,
       topic: topics.sample
-    },
+    }
   )
 end
 
@@ -177,7 +177,7 @@ end
     {
       title: Faker::Lorem.sentence(word_count: 3),
       content: Faker::Lorem.paragraph(sentence_count: 5),
-      division_target: divisions.sample,
+      target: departments.sample,
       claps: Faker::Number.within(range: 1..300),
       clicks: Faker::Number.within(range: 1..300),
       topic: topics.sample,
@@ -190,9 +190,9 @@ end
         ),
       all_day: false,
       event_location: locations.sample,
-      division_id: hr.id,
+     
       user_id: Marcos.id,
-    },
+    }
   )
 end
 

@@ -3,9 +3,9 @@ class NewsPostsController < ApplicationController
 
   # GET /news_posts
   def index
-    @news_posts = NewsPost.all
+    news_posts = NewsPost.all
 
-    render json: @news_posts
+    render json: news_posts
   end
 
   # GET /news_posts/1
@@ -46,6 +46,6 @@ class NewsPostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def news_post_params
-      params.require(:news_post).permit(:title, :content, :claps, :clicks, :User_id, :topic, :target)
+      params.require(:news_post).permit(:title, :content, :claps, :clicks, :user_id, :topic, :target)
     end
 end
