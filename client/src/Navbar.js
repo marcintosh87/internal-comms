@@ -79,10 +79,7 @@ export default function Navbar({ currentUser, setCurrentUser }) {
               aria-expanded={open ? "true" : undefined}
               onClick={handleClick}
             >
-              <Avatar
-                alt={currentUser.first_name}
-                src={currentUser.profile_image}
-              />
+              <Avatar alt={currentUser.first_name} src={currentUser.image} />
             </Button>
             <Menu
               id="basic-menu"

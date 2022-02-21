@@ -29,7 +29,7 @@ export default function UserAccount({
   const [submissionMessage, setSubmissionMessage] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [errors, setErrors] = useState("");
-  const [userPhoto, setUserPhoto] = useState(null);
+  const [imageData, setImageData] = useState("");
   const [userPasswordForm, setUserPasswordForm] = useState({
     password: "",
     user_id: currentUser.id,
@@ -64,23 +64,19 @@ export default function UserAccount({
       [e.target.name]: e.target.value,
     });
   };
-  const handleUserPhoto = (e) => {
-    setUserPhoto({ ...userPhoto, [e.target.name]: e.target.files[0] });
-  };
 
   const handleUserPhotoSubmit = (e) => {
     e.preventDefault();
+    //
     const formData = new FormData();
 
-    formData.append("user[profile_image]", userPhoto);
-
-    fetch(`/users/${currentUser.id}`, {
+    formData.append("image", imageData);
+    //
+    fetch(`users/${currentUser.id}`, {
       method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
       body: formData,
     });
+    //
   };
 
   const handleUserProfileSubmit = (e) => {
@@ -98,6 +94,9 @@ export default function UserAccount({
           setSubmissionMessage(true);
           setDisabled(true);
           setTimeout(() => setSubmissionMessage(false), 3000);
+          if (imageData !== "") {
+            handleUserPhotoSubmit();
+          }
         });
       } else {
         res.json().then((errors) => {
@@ -138,9 +137,9 @@ export default function UserAccount({
       }
     });
   };
-  //   const Input = styled("input")({
-  //     display: "none",
-  //   });
+  const Input = styled("input")({
+    display: "none",
+  });
 
   return (
     <div
@@ -157,49 +156,10 @@ export default function UserAccount({
           <Box display={"Flex"} flexDirection={"row"} flexWrap={"wrap"}>
             <Box display={"flex"} flexDirection={"column"} ml={4}>
               <Avatar
-                src={currentUser.profile_image}
+                src={currentUser.image}
                 variant="square"
                 sx={{ width: "150px", height: "auto" }}
               />
-              <Box
-                display={"Flex"}
-                flexDirection={"row"}
-                flexWrap={"wrap"}
-                alignItems={"center"}
-              >
-                {/* <label htmlFor="icon-button-file">
-                  <Input
-                    accept="image/*"
-                    id="icon-button-file"
-                    type="file"
-                    name="profile_image"
-                    onChange={handleUserPhoto}
-                  />
-                  <IconButton
-                    color="primary"
-                    aria-label="upload picture"
-                    component="span"
-                  >
-                    <PhotoCamera />
-                  </IconButton>
-                  <Button type="submit" onClick={() => handleUserPhotoSubmit()}>
-                    Submit
-                  </Button>
-                </label> */}
-                {/* <form onSubmit={handleUserPhotoSubmit}>
-                  <input
-                    accept="image/*"
-                    id="icon-button-file"
-                    type="file"
-                    name="avatar"
-                    onChange={(e) => setUserPhoto(e.target.files[0])}
-                  />
-                  <input type="submit" />
-                </form>
-                <Typography variant="caption" color="primary">
-                  Change Profile Photo
-                </Typography> */}
-              </Box>
             </Box>
 
             <Box display={"flex"} flexDirection={"column"} ml={4}>
@@ -349,11 +309,50 @@ export default function UserAccount({
               />
             </Grid>
           </Grid>
+          <Grid
+            container
+            flexDirection={"row"}
+            justifyContent={"left"}
+            alignContent={"center"}
+            spacing={5}
+            mt={1}
+          >
+            <Grid item xs>
+              <label htmlFor="icon-button-file">
+                <Input
+                  accept="image/*"
+                  id="icon-button-file"
+                  type="file"
+                  disabled={disabled}
+                  enctype="multipart/form-data"
+                  onChange={(e) => setImageData(e.target.files[0])}
+                  sx={{ width: "50%" }}
+                />
+                <IconButton
+                  color="primary"
+                  aria-label="upload picture"
+                  component="span"
+                >
+                  <PhotoCamera />
+                </IconButton>
+                <Typography variant="span" sx={{ fontSize: "1vh" }}>
+                  {imageData === "" ? "Change profile image" : imageData.name}
+                </Typography>
+              </label>
+            </Grid>
+          </Grid>
           <CardActions>
             {disabled === true ? (
               <Button onClick={() => setDisabled(false)}>Edit</Button>
             ) : (
-              <Button onClick={() => setDisabled(true)}>Cancel</Button>
+              <Button
+                onClick={() => {
+                  setDisabled(true);
+                  setImageData("");
+                }}
+              >
+                Cancel
+              </Button>
             )}
 
             <Button type="submit">Submit</Button>

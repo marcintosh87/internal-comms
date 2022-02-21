@@ -18,7 +18,7 @@ export default function CommentCard({ comment, user }) {
         <Grid container alignItems={"center"}>
           <Grid item p={2} xs={2}>
             <img
-              src={userData.profile_image}
+              src={userData.image}
               alt="user"
               style={{ width: "80%", borderRadius: 26 }}
             />

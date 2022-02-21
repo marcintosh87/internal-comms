@@ -7,6 +7,8 @@ export default function EmployeeDir({
   users,
   currentUser,
   setMessagesUsername,
+  setRefresh,
+  refresh,
 }) {
   const [search, setSearch] = useState("");
   const handleSearch = (event) => {
@@ -52,10 +54,13 @@ export default function EmployeeDir({
         {search.length === 0 && users
           ? users.map((user) => (
               <EmployeeDirCard
+                refresh={refresh}
+                setRefresh={setRefresh}
                 key={user.id}
+                id={user.id}
                 firstName={user.first_name}
                 lastName={user.last_name}
-                profileImage={user.profile_image}
+                profileImage={user.image}
                 position={user.position}
                 division={user.department.name}
                 email={user.email}
@@ -67,10 +72,13 @@ export default function EmployeeDir({
             ))
           : search.map((user) => (
               <EmployeeDirCard
+                refresh={refresh}
+                setRefresh={setRefresh}
                 key={user.id}
+                id={user.id}
                 firstName={user.first_name}
                 lastName={user.last_name}
-                profileImage={user.profile_image}
+                profileImage={user.image}
                 position={user.position}
                 division={user.department.name}
                 email={user.email}
