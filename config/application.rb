@@ -23,6 +23,7 @@ module InternalComms
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
+    config.secret_key_base="f782845f2a0a8805c024b53d4e28f7225818733b07a40086edf190cd54c1668f98b75ee807ff6897cf58459108a8d3700056972edc738f431fe29921090c154d"
 
     # Configuration for the application, engines, and railties goes here.
     #
