@@ -39,6 +39,15 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
   end
+    # me path
+
+    def me
+      if current_user 
+        render json: current_user, status: :ok 
+    else 
+        render json: "No one is logged in", status: :unauthorized
+    end
+    end
 
   private
     # Use callbacks to share common setup or constraints between actions.
