@@ -191,9 +191,9 @@ export default function EventArticle({ eventPost, loading, currentUser }) {
                   content={post.content}
                   claps={post.claps}
                   image={post.image}
-                  date={post.event_date}
+                  date={post.date_of_event}
                   location={post.event_location}
-                  event_date={post.event_date}
+                  time={post.time}
                   loading={loading}
                 />
               ))}
