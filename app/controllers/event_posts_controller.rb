@@ -3,7 +3,7 @@ class EventPostsController < ApplicationController
 
   # GET /event_posts
   def index
-    @event_posts = EventPost.all.order(created_at: :desc)
+    @event_posts = EventPost.all.order(:event_date)
 
     render json: @event_posts
   end
@@ -41,6 +41,6 @@ class EventPostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def event_post_params
-      params.permit(:title, :content, :claps, :clicks, :user_id, :topic, :event_date, :event_time, :all_day, :event_location, :target, :image)
+      params.permit(:title, :content, :claps, :clicks, :user_id, :topic, :event_date, :event_time, :all_day, :event_location, :target, :image, :id)
     end
 end

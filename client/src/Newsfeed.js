@@ -21,7 +21,7 @@ const styles = {
   paperContainer: {
     width: "100%",
     height: "35vh",
-   
+
     backgroundImage: `url(${hero})`,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
@@ -60,61 +60,58 @@ export default function Newsfeed({
   return (
     <>
       <section style={styles.paperContainer}>
-     <Container>
-     <Grid container wrap="nowrap">
-       
-          <Grid item xs={5} sx={{   mx: "auto" , mt:5}} >
-            <Typography variant="h5" color={"#fff"} align="left">
-              A MESSAGE FROM OUR CEO
-            </Typography>
-            <img
-              src={video}
-              alt=""
-              style={{ maxWidth: "100%", margin: "15px 0px",  }}
-            />
-            <Typography sx={{ fontSize: "1.2vh", fontFamily: "Open Sans" }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </Typography>
-          </Grid>
+        <Container>
+          <Grid container wrap="nowrap">
+            <Grid item xs={5} sx={{ mx: "auto", mt: 5 }}>
+              <Typography variant="h5" color={"#fff"} align="left">
+                A MESSAGE FROM OUR CEO
+              </Typography>
+              <img
+                src={video}
+                alt=""
+                style={{ maxWidth: "100%", margin: "15px 0px" }}
+              />
+              <Typography sx={{ fontSize: "1.2vh", fontFamily: "Open Sans" }}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              </Typography>
+            </Grid>
 
-          <Grid item xs={2}></Grid>
-          <Grid item xs={5} sx={{ mt: 4 }} justifyContent="center" className="fade-in">
-            <Typography
-              variant="body1"
-              color={"white"}
-              align="center"
-              sx={{ fontSize: "1.4vw" }}
-              
+            <Grid item xs={2}></Grid>
+            <Grid
+              item
+              xs={5}
+              sx={{ mt: 4 }}
+              justifyContent="center"
+              className="fade-in"
             >
-              We are an outstanding collective of caregivers representing
-              various cultures, beliefs, backgrounds, and life experiences.
-            </Typography>
-            <Box sx={{ textAlign: "center" }}>
-              <Button
-                size="small"
-                variant="contained"
+              <Typography
+                variant="body1"
                 color={"white"}
-                sx={{ mt: 1, borderRadius: 16, boxShadow: 0 }}
+                align="center"
+                sx={{ fontSize: "1.4vw" }}
               >
-                <span style={{ color: "#999999" }}>Learn More</span>
-              </Button>
-            </Box>
+                We are an outstanding collective of caregivers representing
+                various cultures, beliefs, backgrounds, and life experiences.
+              </Typography>
+              <Box sx={{ textAlign: "center" }}>
+                <Button
+                  size="small"
+                  variant="contained"
+                  color={"white"}
+                  sx={{ mt: 1, borderRadius: 16, boxShadow: 0 }}
+                >
+                  <span style={{ color: "#999999" }}>Learn More</span>
+                </Button>
+              </Box>
+            </Grid>
           </Grid>
-         
-        </Grid>
-     </Container>
+        </Container>
       </section>
       <Container component={"main"}>
         <Grid container>
           <Grid item xs={5}>
-            <Typography
-              align="left"
-              variant="h3"
-             
-              mt={4}
-              color="secondary"
-            >
+            <Typography align="left" variant="h3" mt={4} color="secondary">
               NEWSFEED
             </Typography>
           </Grid>
@@ -164,7 +161,7 @@ export default function Newsfeed({
             </Box>
           </Grid>
         </Grid>
-        <Divider  />
+        <Divider />
       </Container>
       <Container component={"aside"}>
         <Box
@@ -175,7 +172,6 @@ export default function Newsfeed({
             alignItems: "flex-start",
             justifyContent: "center",
             pb: 7,
- 
           }}
         >
           {search.length === 0 && !loading
@@ -188,7 +184,7 @@ export default function Newsfeed({
                     title={post.title}
                     content={post.content}
                     claps={post.claps}
-                    image={post.image_post}
+                    image={post.image}
                     date={post.date}
                     setRefresh={setRefresh}
                     refresh={refresh}
@@ -204,7 +200,7 @@ export default function Newsfeed({
                     title={post.title}
                     content={post.content}
                     claps={post.claps}
-                    image={post.image_post}
+                    image={post.image}
                     date={post.date}
                     setRefresh={setRefresh}
                     refresh={refresh}

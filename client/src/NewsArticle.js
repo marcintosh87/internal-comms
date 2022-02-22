@@ -179,7 +179,7 @@ export default function NewsArticle({ newsPost, loading, currentUser }) {
                   title={post.title}
                   content={post.content}
                   claps={post.claps}
-                  image={post.image_post}
+                  image={post.image}
                   date={post.date}
                 />
               ))}

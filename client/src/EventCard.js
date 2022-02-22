@@ -60,10 +60,13 @@ export default function EventCard({
   return (
     <>
       {id && (
-        <Card sx={{ display: "flex", width: "90%", m: 2, boxShadow: 0 }} className="scale-up-center ">
+        <Card
+          sx={{ display: "flex", width: "90%", m: 2, boxShadow: 0 }}
+          className="scale-up-center "
+        >
           <CardMedia
             component="img"
-            sx={{ width: 150, height: 160, borderRadius: 10, m: 1, }}
+            sx={{ width: 150, height: 160, borderRadius: 10, m: 1 }}
             image={image}
             alt={title}
           />
@@ -82,7 +85,7 @@ export default function EventCard({
                 variant="subtitle2"
                 align="left"
               >
-                {`${date} | ${mail_time} | ${location}`}
+                {`${date} | ${time} | ${location}`}
               </Typography>
               <Typography
                 sx={{ color: "#9B9B9B" }}

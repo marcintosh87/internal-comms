@@ -128,7 +128,7 @@ function App() {
           <Navbar currentUser={currentUser} setCurrentUser={setCurrentUser} />
 
           {/* Main content Start */}
-          {loading === true ? null : (
+          {loading ? null : (
             <Routes>
               <Route
                 path="/profile/:id/*"

@@ -89,7 +89,7 @@ export default function EventsFeed({ eventPost }) {
           </FormControl>
         </Box>
       </div>
-      <Container sx={{ mt: 10, mb: 10, ml: "5%" }}>
+      <Container sx={{ mt: 10, mb: 10, ml: "15%" }}>
         {eventPost &&
           eventPost.map((event) => (
             <EventCard
@@ -101,7 +101,7 @@ export default function EventsFeed({ eventPost }) {
               location={event.event_location}
               content={event.content}
               claps={event.claps}
-              image={event.image_post}
+              image={event.image}
               event_date={event.event_date}
               mail_time={event.mail_time}
             />
