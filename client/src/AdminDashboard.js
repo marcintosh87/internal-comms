@@ -19,6 +19,8 @@ import {
   CardHeader,
   Checkbox,
   Container,
+  FormControl,
+  FormHelperText,
   Grid,
   IconButton,
   Input,
@@ -34,6 +36,7 @@ import { Link, Route, Routes } from "react-router-dom";
 import AdminNewsFeed from "./AdminNewsFeed";
 import AdminEventsFeed from "./AdminEventsFeed";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
+import CheckBoxOutlineBlankOutlinedIcon from "@mui/icons-material/CheckBoxOutlineBlankOutlined";
 import { styled } from "@mui/material/styles";
 import DatePicker from "@mui/lab/DatePicker";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
@@ -93,6 +96,7 @@ export const data = {
     },
   ],
 };
+
 export default function AdminDashboard({
   currentUser,
   setRefresh,
@@ -108,12 +112,13 @@ export default function AdminDashboard({
   const handleClose = () => setOpen(false);
   const [imageData, setImageData] = useState("");
   const [errors, setErrors] = useState("");
+  const [showTime, setShowTime] = useState(true);
   const [postNewsData, setNewsPostData] = useState({
     title: "",
     content: "",
     claps: 0,
     clicks: 0,
-    target: "",
+    target: 1,
     topic: "",
 
     user_id: currentUser.id,
@@ -124,11 +129,11 @@ export default function AdminDashboard({
     content: "",
     event_date: "",
     event_time: "",
-    all_day: "",
+    all_day: false,
     event_location: "",
     claps: 0,
     clicks: 0,
-    target: "",
+    target: 1,
     topic: "",
 
     user_id: currentUser.id,
@@ -166,6 +171,30 @@ export default function AdminDashboard({
           });
           setRefresh(refresh + 1);
           setImageData("");
+          setEventPostData({
+            title: "",
+            content: "",
+            event_date: "",
+            event_time: "",
+            all_day: false,
+            event_location: "",
+            claps: 0,
+            clicks: 0,
+            target: 1,
+            topic: "",
+
+            user_id: currentUser.id,
+          });
+          setNewsPostData({
+            title: "",
+            content: "",
+            claps: 0,
+            clicks: 0,
+            target: 1,
+            topic: "",
+
+            user_id: currentUser.id,
+          });
 
           handleClose();
         });
@@ -253,7 +282,10 @@ export default function AdminDashboard({
       >
         <Container>
           <Card sx={{ my: 5 }}>
-            <CardHeader title="Post" sx={{ backgroundColor: "#F8F8FC" }} />
+            <CardHeader
+              title="Post"
+              sx={{ backgroundColor: "#F8F8FC", textAlign: "center" }}
+            />
             <CardContent sx={{ backgroundColor: "#fff" }} component="form">
               <Grid
                 container
@@ -268,64 +300,77 @@ export default function AdminDashboard({
                     flexDirection={"row"}
                     alignItems={"center"}
                   >
-                    <Select
-                      labelId="select-content-type"
-                      id="demo-simple-select"
-                      value={postType}
-                      label="Post Type"
-                      sx={{ mr: 2 }}
-                      onChange={(e) => setPostType(e.target.value)}
-                    >
-                      <MenuItem value={"news_posts"}>News Post</MenuItem>
-                      <MenuItem value={"event_posts"}>Event Post</MenuItem>
-                    </Select>
-                    <Typography color={"primary"} mr={1}>
-                      Target Audience
-                    </Typography>
-                    <Select
-                      labelId="select-department"
-                      id="select-department"
-                      name="target"
-                      value={
-                        postType === "news_posts"
-                          ? postNewsData.target
-                          : postEventData.target
-                      }
-                      label="Department Target"
-                      sx={{ mr: 2 }}
-                      onChange={
-                        postType === "news_posts"
-                          ? handleNewsPostData
-                          : handleEventPostData
-                      }
-                    >
-                      <MenuItem value={1}>Human Resources</MenuItem>
-                      <MenuItem value={2}>Sales</MenuItem>
-                      <MenuItem value={3}>Warehouse</MenuItem>
-                      <MenuItem value={4}>Finance</MenuItem>
-                      <MenuItem value={5}>Legal</MenuItem>
-                      <MenuItem value={6}>Marketing</MenuItem>
-                      <MenuItem value={7}>Business Development</MenuItem>
-                    </Select>
-                    <TextField
-                      id="update-topic"
-                      label="topic"
-                      variant="outlined"
-                      InputLabelProps={{
-                        style: { color: "black" },
-                      }}
-                      value={
-                        postType === "news_posts"
-                          ? postNewsData.topic
-                          : postEventData.topic
-                      }
-                      name="topic"
-                      onChange={
-                        postType === "news_posts"
-                          ? handleNewsPostData
-                          : handleEventPostData
-                      }
-                    />
+                    <Box display={"flex"} flexDirection={"column"}>
+                      <FormHelperText sx={{ color: "#00539a" }}>
+                        News or Event Post
+                      </FormHelperText>
+                      <Select
+                        labelId="select-content-type"
+                        id="demo-simple-select"
+                        value={postType}
+                        label="Post Type"
+                        sx={{ mr: 2 }}
+                        onChange={(e) => setPostType(e.target.value)}
+                      >
+                        <MenuItem value={"news_posts"}>News Post</MenuItem>
+                        <MenuItem value={"event_posts"}>Event Post</MenuItem>
+                      </Select>
+                    </Box>
+
+                    <Box display={"flex"} flexDirection={"column"}>
+                      <FormHelperText sx={{ color: "#00539a" }}>
+                        Target Audience
+                      </FormHelperText>
+                      <Select
+                        labelId="select-department"
+                        id="select-department"
+                        name="target"
+                        value={
+                          postType === "news_posts"
+                            ? postNewsData.target
+                            : postEventData.target
+                        }
+                        label="Department Target"
+                        sx={{ mr: 2 }}
+                        onChange={
+                          postType === "news_posts"
+                            ? handleNewsPostData
+                            : handleEventPostData
+                        }
+                      >
+                        <MenuItem value={1}>Human Resources</MenuItem>
+                        <MenuItem value={2}>Sales</MenuItem>
+                        <MenuItem value={3}>Warehouse</MenuItem>
+                        <MenuItem value={4}>Finance</MenuItem>
+                        <MenuItem value={5}>Legal</MenuItem>
+                        <MenuItem value={6}>Marketing</MenuItem>
+                        <MenuItem value={7}>Business Development</MenuItem>
+                      </Select>
+                    </Box>
+                    <Box display={"flex"} flexDirection={"column"}>
+                      <FormHelperText sx={{ color: "#00539a" }}>
+                        Enter 1 topic
+                      </FormHelperText>
+                      <TextField
+                        id="update-topic"
+                        label="topic"
+                        variant="outlined"
+                        InputLabelProps={{
+                          style: { color: "black" },
+                        }}
+                        value={
+                          postType === "news_posts"
+                            ? postNewsData.topic
+                            : postEventData.topic
+                        }
+                        name="topic"
+                        onChange={
+                          postType === "news_posts"
+                            ? handleNewsPostData
+                            : handleEventPostData
+                        }
+                      />
+                    </Box>
                   </Box>
                 </Grid>
                 {postType === "event_posts" ? (
@@ -347,30 +392,41 @@ export default function AdminDashboard({
                         name="all_day"
                         value={postEventData.all_day}
                         color={"primary"}
-                        iconStyle={{ fill: "red" }}
-                        defaultChecked
+                        onChange={(e) => {
+                          setEventPostData({
+                            ...postEventData,
+                            [e.target.name]: e.target.checked,
+                          });
+                          e.target.checked
+                            ? setShowTime(false)
+                            : setShowTime(true);
+                        }}
+                        icon={
+                          <CheckBoxOutlineBlankOutlinedIcon color="secondary" />
+                        }
                         {...label}
                       >
                         All Day
                       </Checkbox>
+                      <span style={{ marginRight: 10 }}>All Day</span>
+                      {showTime && (
+                        <input
+                          type="time"
+                          name="event_time"
+                          id=""
+                          value={postEventData.event_time}
+                          onChange={handleEventPostData}
+                          style={{ marginRight: 10 }}
+                        />
+                      )}
                       <input
-                        type="time"
-                        name="event_time"
-                        id=""
-                        value={postEventData.event_time}
-                        onChange={handleEventPostData}
-                        style={{ marginRight: 2 }}
-                      />
-                      <TextField
+                        type="text"
+                        name="event_location"
                         id="update-event_location"
                         label="event_location"
-                        variant="outlined"
-                        InputLabelProps={{
-                          style: { color: "black" },
-                        }}
                         value={postEventData.event_location}
-                        name="event_location"
                         onChange={handleEventPostData}
+                        placeholder="Location"
                       />
                     </Box>
                   </Grid>
@@ -447,16 +503,18 @@ export default function AdminDashboard({
               </Grid>
 
               <CardActions>
-                <Button
-                  onClick={() => {
-                    setImageData("");
-                    handleClose();
-                  }}
-                >
-                  Cancel
-                </Button>
+                <Box display={"flex"} mx={"auto"}>
+                  <Button
+                    onClick={() => {
+                      setImageData("");
+                      handleClose();
+                    }}
+                  >
+                    Cancel
+                  </Button>
 
-                <Button onClick={handlePostSubmit}>Submit</Button>
+                  <Button onClick={handlePostSubmit}>Submit</Button>
+                </Box>
               </CardActions>
             </CardContent>
           </Card>

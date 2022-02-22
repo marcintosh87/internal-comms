@@ -130,7 +130,7 @@ export default function EventArticle({ eventPost, loading, currentUser }) {
             {article && (
               <Box mt={3} display={"flex"} alignItems={"flex-start"}>
                 <Button
-                  href={`https://outlook.live.com/owa/?path=/calendar/view/Month&rru=addevent&startdt=${article.event_date}${article.mail_time}&enddt=20200214T000000Z&subject=${article.title}+Event&location=${article.event_location}&body=${article.content}`}
+                  href={`https://outlook.live.com/owa/?path=/calendar/view/Month&rru=addevent&startdt=${article.date_of_event}${article.time}&enddt=20200214T000000Z&subject=${article.title}+Event&location=${article.event_location}&body=${article.content}`}
                   target={"_blank"}
                 >
                   Add Event to Outlook
