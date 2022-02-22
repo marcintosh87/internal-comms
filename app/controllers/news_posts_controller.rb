@@ -3,7 +3,7 @@ class NewsPostsController < ApplicationController
 
   # GET /news_posts
   def index
-    news_posts = NewsPost.all
+    news_posts = NewsPost.all.order(created_at: :desc)
 
     render json: news_posts
   end
@@ -15,13 +15,8 @@ class NewsPostsController < ApplicationController
 
   # POST /news_posts
   def create
-    @news_post = NewsPost.new(news_post_params)
-
-    if @news_post.save
-      render json: @news_post, status: :created, location: @news_post
-    else
-      render json: @news_post.errors, status: :unprocessable_entity
-    end
+   post = NewsPost.create(news_post_params)
+   render json: post
   end
 
   # PATCH/PUT /news_posts/1
@@ -53,6 +48,6 @@ class NewsPostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def news_post_params
-      params.require(:news_post).permit(:title, :content, :claps, :clicks, :user_id, :topic, :target, :main_image)
+      params.permit(:title, :content, :claps, :clicks, :user_id, :topic, :target, :image, :id)
     end
 end

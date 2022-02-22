@@ -5,6 +5,8 @@ import React, { useEffect, useState } from "react";
 export default function CommentCard({ comment, user }) {
   const [userData, setUserData] = useState([]);
 
+  console.log(user);
+
   useEffect(
     () =>
       fetch(`/users/${user}`)

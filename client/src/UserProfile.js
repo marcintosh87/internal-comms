@@ -13,7 +13,8 @@ import UserAccount from "./UserAccount";
 
 export default function UserProfile({
   currentUser,
-
+  refresh,
+  setRefresh,
   setCurrentUser,
   newsPost,
   eventPost,
@@ -22,7 +23,7 @@ export default function UserProfile({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
   const [messagesUsername, setMessagesUsername] = useState("");
-  const [refresh, setRefresh] = useState(0);
+  const [refreshUser, setRefreshUser] = useState(0);
 
   useEffect(() => {
     fetch(`/users`)
@@ -32,7 +33,7 @@ export default function UserProfile({
         setLoading(false);
       })
       .catch((error) => setError(error));
-  }, [refresh]);
+  }, [refreshUser]);
 
   if (loading) {
     return (
@@ -174,8 +175,8 @@ export default function UserProfile({
                 path="employee-directory"
                 element={
                   <EmployeeDir
-                    refresh={refresh}
-                    setRefresh={setRefresh}
+                    refresh={refreshUser}
+                    setRefresh={setRefreshUser}
                     users={users}
                     currentUser={currentUser}
                     setMessagesUsername={setMessagesUsername}

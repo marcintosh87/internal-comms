@@ -3,7 +3,7 @@ class EventPostsController < ApplicationController
 
   # GET /event_posts
   def index
-    @event_posts = EventPost.all
+    @event_posts = EventPost.all.order(created_at: :desc)
 
     render json: @event_posts
   end
@@ -15,13 +15,8 @@ class EventPostsController < ApplicationController
 
   # POST /event_posts
   def create
-    @event_post = EventPost.new(event_post_params)
-
-    if @event_post.save
-      render json: @event_post, status: :created, location: @event_post
-    else
-      render json: @event_post.errors, status: :unprocessable_entity
-    end
+    post = EventPost.create(event_post_params)
+   render json: post
   end
 
   # PATCH/PUT /event_posts/1
@@ -46,6 +41,6 @@ class EventPostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def event_post_params
-      params.require(:event_post).permit(:title, :content, :claps, :clicks, :User_id, :topic, :event_date, :event_time, :all_day, :event_location, :target)
+      params.permit(:title, :content, :claps, :clicks, :user_id, :topic, :event_date, :event_time, :all_day, :event_location, :target, :image)
     end
 end

@@ -23,7 +23,7 @@ import clap from "./images/blue-clap.png";
 import mouse from "./images/mouse-click.png";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
-export default function AdminPostCardNews({
+export default function AdminPostCardEvent({
   title,
   date,
   clicks,
@@ -54,7 +54,7 @@ export default function AdminPostCardNews({
 
     formData.append("image", imageData);
     //
-    fetch(`/news_posts/${id}`, {
+    fetch(`/event_posts/${id}`, {
       method: "PATCH",
       body: formData,
     });
@@ -64,7 +64,7 @@ export default function AdminPostCardNews({
 
   const handlePostSubmit = (e) => {
     e.preventDefault();
-    fetch(`/news_posts/${id}`, {
+    fetch(`/event_posts/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -129,7 +129,7 @@ export default function AdminPostCardNews({
               style={{ width: 14, marginLeft: 10 }}
             />
             <Typography color={"secondary"}>{clicks}</Typography>
-            <Link to={`/news-article/${id}`} className="react-link">
+            <Link to={`/event-article/${id}`} className="react-link">
               <Button>Read</Button>
             </Link>
             <Button onClick={handleOpen}>Edit</Button>

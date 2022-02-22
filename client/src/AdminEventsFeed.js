@@ -1,6 +1,6 @@
 import { Box, Button, Card, CardMedia } from "@mui/material";
 import React, { useState } from "react";
-import AdminPostCardNews from "./AdminPostCardNews";
+import AdminPostCardEvent from "./AdminPostCardEvent";
 
 export default function AdminEventsFeed({ eventPost }) {
   const [postsNum, setPostsNum] = useState(4);
@@ -10,14 +10,14 @@ export default function AdminEventsFeed({ eventPost }) {
         eventPost
           .slice(0, postsNum)
           .map((each) => (
-            <AdminPostCardNews
+            <AdminPostCardEvent
               key={each.id}
               id={each.id}
               title={each.title}
               date={each.date}
               clicks={each.clicks}
               claps={each.claps}
-              image={each.image_post}
+              image={each.image}
             />
           ))}
       <Box mb={10} sx={{ textAlign: "center" }}>

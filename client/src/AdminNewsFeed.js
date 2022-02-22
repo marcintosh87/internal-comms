@@ -2,7 +2,7 @@ import { Box, Button, Card, CardMedia } from "@mui/material";
 import React, { useState } from "react";
 import AdminPostCardNews from "./AdminPostCardNews";
 
-export default function AdminNewsFeed({ newsPost }) {
+export default function AdminNewsFeed({ newsPost, refresh, setRefresh }) {
   const [postsNum, setPostsNum] = useState(4);
   return (
     <>
@@ -17,7 +17,11 @@ export default function AdminNewsFeed({ newsPost }) {
               date={each.date}
               clicks={each.clicks}
               claps={each.claps}
-              image={each.image_post}
+              image={each.image}
+              content={each.content}
+              topic={each.topic}
+              refresh={refresh}
+              setRefresh={setRefresh}
             />
           ))}
       <Box mb={10} sx={{ textAlign: "center" }}>

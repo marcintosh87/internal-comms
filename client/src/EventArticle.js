@@ -29,6 +29,8 @@ export default function EventArticle({ eventPost, loading, currentUser }) {
     event_post_id: params.id,
   });
 
+  // console.log(params.id);
+
   useEffect(() => {
     fetch(`/event_posts/${params.id}`)
       .then((res) => res.json())
@@ -64,12 +66,10 @@ export default function EventArticle({ eventPost, loading, currentUser }) {
     paperContainer: {
       height: "40vh",
       width: "100%",
-      backgroundImage: `url(${article && article.image_post})`,
+      backgroundImage: `url(${article && article.image})`,
       backgroundSize: "cover",
       backgroundRepeat: "no-repeat",
-      backgroundPosition: "0% 20%"
-    
-   
+      backgroundPosition: "0% 20%",
     },
   };
 
@@ -80,7 +80,7 @@ export default function EventArticle({ eventPost, loading, currentUser }) {
 
   const handleCommentsSubmission = (e) => {
     e.preventDefault();
-    fetch(`/e_comments`, {
+    fetch(`/event_comments`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -110,143 +110,140 @@ export default function EventArticle({ eventPost, loading, currentUser }) {
       {article && (
         <Box>
           <section style={styles.paperContainer}></section>
-     <Container>
-     <Typography variant="h4" align="left" mt={2} color={"#5F5F5F"}>
-            {article.title}
-          </Typography>
+          <Container>
+            <Typography variant="h4" align="left" mt={2} color={"#5F5F5F"}>
+              {article.title}
+            </Typography>
 
-          <Typography color={"#9B9B9B"} variant="subtitle2" align="left" mt={2}>
-            {`${article.date_of_event} | ${article.time} | ${article.event_location}`}
-          </Typography>
-          <Typography variant="body1" align="left" color={"#9B9B9B"} mt={2}>
-            {article.content}
-          </Typography>
-
-          {article && (
-            <Box mt={3} display={"flex"} alignItems={"flex-start"}>
-              <Button
-                href={`https://outlook.live.com/owa/?path=/calendar/view/Month&rru=addevent&startdt=${article.event_date}${article.mail_time}&enddt=20200214T000000Z&subject=${article.title}+Event&location=${article.event_location}&body=${article.content}`}
-                target={"_blank"}
-              >
-                Add Event to Outlook
-              </Button>
-              <Button>
-                <img src={clap} alt="clap-icon" style={{ width: 20 }} />
-                {article.claps}
-              </Button>
-              <Button href="#e_comments">
-                <img
-                  src={comment}
-                  alt="clap-icon"
-                  style={{ width: 20, marginRight: 10 }}
-                />
-                {article.e_comments.length === 1
-                  ? ` ${article.e_comments.length} comment `
-                  : ` ${article.e_comments.length} comments `}
-              </Button>
-            </Box>
-          )}
-     </Container>
-        </Box>
-      )}
-   <Container>
-   <main>
-        <Grid container>
-          <Grid item xs={5}>
             <Typography
+              color={"#9B9B9B"}
+              variant="subtitle2"
               align="left"
-              variant="h3"
-          
-              mt={4}
-              color="secondary"
+              mt={2}
             >
-              UPCOMING EVENTS
+              {`${article.date_of_event} | ${article.time} | ${article.event_location}`}
             </Typography>
-          </Grid>
-          <Grid item xs={2}></Grid>
-
-          <Grid item xs={3} mt={4.5}></Grid>
-        </Grid>
-        <Divider  />
-      </main>
-   </Container>
-      <Container>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap",
-          alignItems: "flex-start",
-          justifyContent: "flex-start",
-          pb: 7,
-      
-        }}
-      >
-        {eventPost &&
-          eventPost
-            .slice(0, 4)
-            .map((post) => (
-              <EventCard
-                key={post.id}
-                id={post.id}
-                title={post.title}
-                content={post.content}
-                claps={post.claps}
-                image={post.image_post}
-                date={post.date_of_event}
-                location={post.event_location}
-                event_date={post.event_date}
-                mail_time={post.mail_time}
-                loading={loading}
-              />
-            ))}
-        <Grid container rowSpacing={4} my={4}>
-          <Grid item xs={6}>
-            <Typography variant="h5" align="left" color={"primary"}>
-              Comments
+            <Typography variant="body1" align="left" color={"#9B9B9B"} mt={2}>
+              {article.content}
             </Typography>
 
-            {!loading && (
-              <Box id="e_comments">
-                {article.e_comments.map((each) => (
-                  <CommentCard
-                    key={each.id}
-                    comment={each.comment}
-                    user={each.user_id}
-                  />
-                ))}
-              </Box>
-            )}
-          </Grid>
-          <Grid item xs={6} sx={{ textAlign: "left" }}>
-            <Typography variant="h5" align="left" color={"primary"}>
-              Post a Comment
-            </Typography>
-            <Box component="form" onSubmit={handleCommentsSubmission}>
-              <TextField
-                id="outlined-multiline-static"
-                label="Comment"
-                multiline
-                rows={4}
-                onChange={handleComments}
-                fullWidth
-                sx={{ width: "80%", mt: 2 }}
-                name="comment"
-                value={comments.comment}
-              />
-              <Box mt={1}>
+            {article && (
+              <Box mt={3} display={"flex"} alignItems={"flex-start"}>
                 <Button
-                  type="submit"
-                  variant="contained"
-                  endIcon={<SendIcon />}
+                  href={`https://outlook.live.com/owa/?path=/calendar/view/Month&rru=addevent&startdt=${article.event_date}${article.mail_time}&enddt=20200214T000000Z&subject=${article.title}+Event&location=${article.event_location}&body=${article.content}`}
+                  target={"_blank"}
                 >
-                  Send
+                  Add Event to Outlook
+                </Button>
+                <Button>
+                  <img src={clap} alt="clap-icon" style={{ width: 20 }} />
+                  {article.claps}
+                </Button>
+                <Button href="#e_comments">
+                  <img
+                    src={comment}
+                    alt="clap-icon"
+                    style={{ width: 20, marginRight: 10 }}
+                  />
+                  {article.event_comments.length === 1
+                    ? ` ${article.event_comments.length} comment `
+                    : ` ${article.event_comments.length} comments `}
                 </Button>
               </Box>
-            </Box>
+            )}
+          </Container>
+        </Box>
+      )}
+      <Container>
+        <main>
+          <Grid container>
+            <Grid item xs={5}>
+              <Typography align="left" variant="h3" mt={4} color="secondary">
+                UPCOMING EVENTS
+              </Typography>
+            </Grid>
+            <Grid item xs={2}></Grid>
+
+            <Grid item xs={3} mt={4.5}></Grid>
           </Grid>
-        </Grid>
-      </Box>
+          <Divider />
+        </main>
+      </Container>
+      <Container>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            alignItems: "flex-start",
+            justifyContent: "flex-start",
+            pb: 7,
+          }}
+        >
+          {eventPost &&
+            eventPost
+              .slice(0, 4)
+              .map((post) => (
+                <EventCard
+                  key={post.id}
+                  id={post.id}
+                  title={post.title}
+                  content={post.content}
+                  claps={post.claps}
+                  image={post.image}
+                  date={post.event_date}
+                  location={post.event_location}
+                  event_date={post.event_date}
+                  loading={loading}
+                />
+              ))}
+          <Grid container rowSpacing={4} my={4}>
+            <Grid item xs={6}>
+              <Typography variant="h5" align="left" color={"primary"}>
+                Comments
+              </Typography>
+
+              {!loading && (
+                <Box id="e_comments">
+                  {article.event_comments.map((each) => (
+                    <CommentCard
+                      key={each.id}
+                      comment={each.comment}
+                      user={each.user_id}
+                    />
+                  ))}
+                </Box>
+              )}
+            </Grid>
+            <Grid item xs={6} sx={{ textAlign: "left" }}>
+              <Typography variant="h5" align="left" color={"primary"}>
+                Post a Comment
+              </Typography>
+              <Box component="form" onSubmit={handleCommentsSubmission}>
+                <TextField
+                  id="outlined-multiline-static"
+                  label="Comment"
+                  multiline
+                  rows={4}
+                  onChange={handleComments}
+                  fullWidth
+                  sx={{ width: "80%", mt: 2 }}
+                  name="comment"
+                  value={comments.comment}
+                />
+                <Box mt={1}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    endIcon={<SendIcon />}
+                  >
+                    Send
+                  </Button>
+                </Box>
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
       </Container>
     </Box>
   );

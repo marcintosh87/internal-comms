@@ -1,5 +1,6 @@
 class NewsPost < ApplicationRecord
-  belongs_to :user
+  has_one_attached :image
   has_many :news_comments
-  has_one_attached :main_image
+  
+  belongs_to :user
 end
